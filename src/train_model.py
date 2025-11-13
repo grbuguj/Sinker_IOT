@@ -38,6 +38,7 @@ df['날짜'] = pd.to_datetime(
     errors='coerce'
 )
 
+
 # ✅ 끼니 컬럼 추가
 df['끼니'] = df['중식/석식']
 
@@ -119,7 +120,15 @@ df = df[df['주차'].between(1, 16)]
 df['요일'] = df['날짜'].dt.day_name()
 df['주중주말'] = df['요일'].apply(lambda x: '주말' if x in ['Saturday', 'Sunday'] else '주중')
 
-df['공휴일'] = 0
+
+import holidays
+
+# 한국 공휴일 자동 생성
+kr_holidays = holidays.KR(years=[2023, 2024, 2025])
+
+# 날짜가 공휴일이면 1, 아니면 0
+df['공휴일'] = df['날짜'].apply(lambda d: 1 if d in kr_holidays else 0)
+
 df['시험주'] = df['주차'].apply(lambda x: 1 if x in [8, 15] else 0)
 
 df['메뉴평균식수'] = df.groupby('메뉴명')['실제식수'].transform('mean')
@@ -297,6 +306,8 @@ def _prepare_single_input(sample_dict: dict) -> pd.DataFrame:
     X_one = X_one[features].copy()
     return X_one
 
+
+
 def predict_demand(sample_dict: dict) -> float:
     """
     단일 샘플 dict를 받아 예상식수(모델 예측값)를 반환.
@@ -312,27 +323,27 @@ example_input = {
     # 학기: 'YYYY 1학기' / 'YYYY 2학기' (df['학기']에서 사용한 값과 동일하게)
     '학기': '2024 1학기',
     # 주차: 1~16
-    '주차': 16,
+    '주차': 7,
     # 요일: Monday/Tuesday/Wednesday/Thursday/Friday/Saturday/Sunday
-    '요일': 'Wednesday',
+    '요일': 'Tuesday',
     # 주중주말: '주중' 또는 '주말'
     '주중주말': '주중',
     # 공휴일, 시험주: 0/1
     '공휴일': 0,
-    '시험주': 0,
+    '시험주': 1,
     # 메뉴명: 문자열 (새 메뉴 가능)
     '메뉴명': '제육볶음',
     # 메뉴카테고리: df에서 사용한 카테고리명 그대로
     # 예: '덮밥/라이스류','찌개/국/탕류','면류','비빔/볶음류','돈육류','닭육류','소고기류','돈까스류'
-    '메뉴카테고리': '돈육류',
+     '메뉴카테고리': '돈육류',
     # 끼니: df에서 사용한 값 그대로 (예: '중식', '석식' 등)
-    '끼니': '중식',
+    '끼니': '석식',
     # 아래 3개는 [옵션] — 안 넣으면 자동 보완됨
-    #'메뉴평균식수': 100,
-    '카테고리평균식수': 100,
+    '메뉴평균식수': 500,
+    '카테고리평균식수': 400,
     #'메뉴재등장빈도': 0,
     # 판매가/원가율
-    '판매가': 7000,
+    '판매가': 5000,
     '원가율': 47.2
 }
 
@@ -342,4 +353,11 @@ print(f"[예측] 예상식수: {pred:.1f}명")
 
 
 
+# ------------------------------------------------------------
+# 11️⃣ 모델 저장
+# ------------------------------------------------------------
+import joblib
+save_path = os.path.join(BASE_DIR, "model.pkl")
+joblib.dump(model, save_path)
+print(f"[저장 완료] 모델이 저장되었습니다 → {save_path}")
 
