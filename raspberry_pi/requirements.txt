@@ -1,0 +1,18 @@
+# 라즈베리파이용 Python 패키지
+
+# HTTP 통신
+requests==2.31.0
+
+# I2C 통신
+smbus2==0.4.3
+
+# ADC (아날로그-디지털 변환)
+adafruit-circuitpython-ads1x15==2.2.21
+adafruit-blinka==8.22.2
+
+# MPU6050 (가속도계 + 자이로스코프)
+mpu6050-raspberrypi==1.2
+
+# 유틸리티
+numpy==1.24.3
+pytz==2023.3

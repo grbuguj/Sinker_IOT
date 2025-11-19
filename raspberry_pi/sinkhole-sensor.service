@@ -1,0 +1,19 @@
+[Unit]
+Description=Sinkhole Sensor Client Service
+After=network.target
+
+[Service]
+Type=simple
+User=pi
+WorkingDirectory=/home/pi/Sinker_IOT/raspberry_pi
+ExecStart=/usr/bin/python3 /home/pi/Sinker_IOT/raspberry_pi/sensor_client.py
+Restart=always
+RestartSec=10
+StandardOutput=journal
+StandardError=journal
+
+# 환경 변수 (필요시)
+# Environment="PYTHONUNBUFFERED=1"
+
+[Install]
+WantedBy=multi-user.target
