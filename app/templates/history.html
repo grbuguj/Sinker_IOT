@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>이력 조회 - 싱크홀 경보 시스템</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🚨 IoT 기반 소규모 싱크홀 조기 경보 시스템</h1>
+            <p>센서 데이터 이력 조회</p>
+        </header>
+
+        <nav>
+            <a href="/">실시간 대시보드</a>
+            <a href="/history" class="active">이력 보기</a>
+            <a href="/config">임계값 설정</a>
+        </nav>
+
+        <main>
+            <!-- 필터 섹션 -->
+            <div class="filters">
+                <h3>📅 조회 기간 설정</h3>
+                <div class="filter-buttons">
+                    <button class="btn btn-primary" onclick="loadHistory(10)">최근 10분</button>
+                    <button class="btn btn-primary" onclick="loadHistory(60)">최근 1시간</button>
+                    <button class="btn btn-primary" onclick="loadHistory(360)">최근 6시간</button>
+                    <button class="btn btn-primary" onclick="loadHistory(1440)">오늘</button>
+                    <button class="btn btn-secondary" onclick="loadHistory()">전체 (최근 200개)</button>
+                </div>
+                
+                <div style="margin-top: 20px;">
+                    <button class="btn btn-success" onclick="downloadCSV()">📥 CSV 다운로드</button>
+                </div>
+            </div>
+
+            <!-- 로딩 표시 -->
+            <div id="loading" class="loading" style="display: none;">
+                <div class="spinner"></div>
+                <p>데이터를 불러오는 중...</p>
+            </div>
+
+            <!-- 데이터 테이블 -->
+            <div id="dataTable" style="overflow-x: auto;">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>시각</th>
+                            <th>토양 수분</th>
+                            <th>진동</th>
+                            <th>가속도 X</th>
+                            <th>가속도 Y</th>
+                            <th>가속도 Z</th>
+                            <th>자이로 X</th>
+                            <th>자이로 Y</th>
+                            <th>자이로 Z</th>
+                            <th>위험도</th>
+                        </tr>
+                    </thead>
+                    <tbody id="historyBody">
+                        <tr>
+                            <td colspan="10" style="text-align: center; padding: 40px; color: #6c757d;">
+                                조회 기간을 선택해주세요
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- 데이터 개수 표시 -->
+            <div id="dataCount" style="margin-top: 20px; text-align: center; color: #6c757d;">
+            </div>
+        </main>
+    </div>
+
+    <script src="/static/js/history.js"></script>
+</body>
+</html>

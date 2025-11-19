@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>실시간 대시보드 - 싱크홀 경보 시스템</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🚨 IoT 기반 소규모 싱크홀 조기 경보 시스템</h1>
+            <p>실시간 센서 데이터 모니터링 대시보드</p>
+        </header>
+
+        <nav>
+            <a href="/" class="active">실시간 대시보드</a>
+            <a href="/history">이력 보기</a>
+            <a href="/config">임계값 설정</a>
+        </nav>
+
+        <main>
+            <!-- 연결 상태 표시 -->
+            <div id="connectionStatus" class="connection-status disconnected">
+                ⚫ 연결 중...
+            </div>
+
+            <!-- 현재 위험도 -->
+            <div style="text-align: center; margin-bottom: 30px;">
+                <h2 style="margin-bottom: 15px;">현재 상태</h2>
+                <div id="currentStatus" class="status-badge status-normal">
+                    정상
+                </div>
+            </div>
+
+            <!-- 그래프 영역 -->
+            <div class="charts-container">
+                <div class="chart-box">
+                    <h3>📊 토양 수분</h3>
+                    <canvas id="moistureChart"></canvas>
+                </div>
+                <div class="chart-box">
+                    <h3>📈 진동 센서</h3>
+                    <canvas id="vibrationChart"></canvas>
+                </div>
+                <div class="chart-box">
+                    <h3>📉 기울기 변화</h3>
+                    <canvas id="tiltChart"></canvas>
+                </div>
+            </div>
+
+            <!-- 실시간 센서 값 -->
+            <div class="sensor-values">
+                <h2 style="margin-bottom: 15px;">실시간 센서 값</h2>
+                <div class="sensor-grid">
+                    <div class="sensor-item">
+                        <label>토양 수분</label>
+                        <div class="value" id="moistureValue">-</div>
+                    </div>
+                    <div class="sensor-item">
+                        <label>진동</label>
+                        <div class="value" id="vibrationValue">-</div>
+                    </div>
+                    <div class="sensor-item">
+                        <label>가속도 X</label>
+                        <div class="value" id="accelXValue">-</div>
+                    </div>
+                    <div class="sensor-item">
+                        <label>가속도 Y</label>
+                        <div class="value" id="accelYValue">-</div>
+                    </div>
+                    <div class="sensor-item">
+                        <label>가속도 Z</label>
+                        <div class="value" id="accelZValue">-</div>
+                    </div>
+                    <div class="sensor-item">
+                        <label>자이로 X</label>
+                        <div class="value" id="gyroXValue">-</div>
+                    </div>
+                    <div class="sensor-item">
+                        <label>자이로 Y</label>
+                        <div class="value" id="gyroYValue">-</div>
+                    </div>
+                    <div class="sensor-item">
+                        <label>자이로 Z</label>
+                        <div class="value" id="gyroZValue">-</div>
+                    </div>
+                    <div class="sensor-item">
+                        <label>마지막 업데이트</label>
+                        <div class="value" id="timestampValue" style="font-size: 1rem;">-</div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="/static/js/dashboard.js"></script>
+</body>
+</html>

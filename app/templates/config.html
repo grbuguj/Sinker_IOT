@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>임계값 설정 - 싱크홀 경보 시스템</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🚨 IoT 기반 소규모 싱크홀 조기 경보 시스템</h1>
+            <p>위험도 판단 임계값 설정</p>
+        </header>
+
+        <nav>
+            <a href="/">실시간 대시보드</a>
+            <a href="/history">이력 보기</a>
+            <a href="/config" class="active">임계값 설정</a>
+        </nav>
+
+        <main>
+            <div style="background: #fff3cd; padding: 15px; border-radius: 8px; margin-bottom: 20px;">
+                <strong>⚠️ 주의:</strong> 임계값 변경 시 즉시 위험도 계산에 반영됩니다.
+            </div>
+
+            <!-- 로딩 표시 -->
+            <div id="loading" class="loading" style="display: none;">
+                <div class="spinner"></div>
+                <p>설정을 불러오는 중...</p>
+            </div>
+
+            <!-- 임계값 목록 -->
+            <div id="thresholdList" class="threshold-list">
+                <!-- JavaScript로 동적 생성 -->
+            </div>
+        </main>
+    </div>
+
+    <script src="/static/js/config.js"></script>
+</body>
+</html>
