@@ -76,13 +76,13 @@ async def index(request: Request):
     return templates.TemplateResponse("index.html", {"request": request})
 
 
-@app.get("/history", response_class=HTMLResponse)
+@app.get("/history_page", response_class=HTMLResponse)
 async def history_page(request: Request):
     """이력 조회 페이지"""
     return templates.TemplateResponse("history.html", {"request": request})
 
 
-@app.get("/config", response_class=HTMLResponse)
+@app.get("/config_page", response_class=HTMLResponse)
 async def config_page(request: Request):
     """임계값 설정 페이지"""
     return templates.TemplateResponse("config.html", {"request": request})
@@ -104,13 +104,16 @@ async def receive_sensor_data(data: SensorDataCreate, db: Session = Depends(get_
         # 데이터 저장
         db_data = create_sensor_data(db, data)
         
-        # WebSocket으로 브로드캐스트
-        sensor_read = SensorDataRead.from_orm(db_data)
-        await manager.broadcast(sensor_read.dict(default=str))
+        # WebSocket으로 브로드캐스트 (Pydantic v2 호환)
+        sensor_read = SensorDataRead.model_validate(db_data)
+        await manager.broadcast(sensor_read.model_dump(mode='json'))
         
         return {"status": "ok", "id": db_data.id, "risk_level": db_data.risk_level}
     
     except Exception as e:
+        print(f"❌ 센서 데이터 저장 실패: {e}")
+        import traceback
+        traceback.print_exc()
         return {"status": "error", "message": str(e)}
 
 
@@ -123,7 +126,7 @@ async def get_latest(db: Session = Depends(get_db)):
     return data
 
 
-@app.get("/history", response_model=List[SensorDataRead])
+@app.get("/api/history", response_model=List[SensorDataRead])
 async def get_history(
     minutes: Optional[int] = Query(None, description="최근 N분 데이터"),
     start: Optional[str] = Query(None, description="시작 시각 (ISO 8601)"),
@@ -145,7 +148,7 @@ async def get_history(
     return data_list
 
 
-@app.get("/history/csv")
+@app.get("/api/history/csv")
 async def download_history_csv(
     minutes: Optional[int] = Query(None, description="최근 N분 데이터"),
     start: Optional[str] = Query(None, description="시작 시각 (ISO 8601)"),

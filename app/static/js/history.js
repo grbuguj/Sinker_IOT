@@ -17,7 +17,7 @@ async function loadHistory(minutes = null) {
     currentMinutes = minutes;
     
     try {
-        let url = '/history';
+        let url = '/api/history';
         if (minutes) {
             url += `?minutes=${minutes}`;
         }
@@ -78,7 +78,7 @@ function getRiskBadgeHTML(riskLevel) {
 
 // CSV 다운로드
 function downloadCSV() {
-    let url = '/history/csv';
+    let url = '/api/history/csv';
     if (currentMinutes) {
         url += `?minutes=${currentMinutes}`;
     }

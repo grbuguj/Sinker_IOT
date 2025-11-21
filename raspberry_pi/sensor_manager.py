@@ -39,7 +39,7 @@ class SensorManager:
         print(f">> 2. 토양 수분 센서 설정 완료 (SPI Bus{SPI_BUS}, Device{SPI_DEVICE})")
         
         # I2C 설정 (기울기/가속도 센서)
-        self.gyro_sensor = mpu6050(MPU6050_ADDRESS)
+        self.gyro_sensor = mpu6050(MPU6050_ADDRESS, bus=20)
         print(f">> 3. 기울기 센서 설정 완료 (I2C 0x{MPU6050_ADDRESS:02X})")
     
     def read_adc(self, channel):
