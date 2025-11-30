@@ -6,7 +6,7 @@
     <title>실시간 대시보드 - 싱크홀 경보 시스템</title>
     <link rel="stylesheet" href="/static/css/style.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-annotation@2.2.1"></script>
 </head>
 <body>
     <div class="container">
@@ -17,8 +17,8 @@
 
         <nav>
             <a href="/" class="active">실시간 대시보드</a>
-            <a href="/history_page">이력 보기</a>
-            <a href="/config_page">임계값 설정</a>
+            <a href="/history">이력 보기</a>
+            <a href="/config">임계값 설정</a>
         </nav>
 
         <main>
@@ -48,6 +48,10 @@
                 <div class="chart-box">
                     <h3>📉 기울기 변화</h3>
                     <canvas id="tiltChart"></canvas>
+                </div>
+                <div class="chart-box">
+                    <h3>🎯 최종 위험도 점수</h3>
+                    <canvas id="riskScoreChart"></canvas>
                 </div>
             </div>
 
