@@ -1,6 +1,15 @@
 # IoT 기반 소규모 싱크홀 조기 경보 시스템
+라즈베리파이를 사용한 실시간 센서 데이터 모니터링 시스템입니다.
 
-FastAPI + MariaDB + WebSocket + Jinja2 + Chart.js를 사용한 실시간 센서 데이터 모니터링 시스템입니다.
+<div>
+      <strong><a href="https://www.canva.com/design/DAG6LUTXfoU/5ccA7VqR5Mz651rRjWQhyw/view?utm_content=DAG6LUTXfoU&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=hef36d4e524" target="_blank">>발표자료<
+    </div>
+<img width="700" height="500" alt="image" src="https://github.com/user-attachments/assets/74f33064-69ff-4d09-95d2-e20b255b8695" />
+
+ [시스템 구조]
+ 
+<img width="536" height="386" alt="image" src="https://github.com/user-attachments/assets/76028d8b-409e-44e5-817a-00623aa2819c" />
+
 
 ## 📋 주요 기능
 
